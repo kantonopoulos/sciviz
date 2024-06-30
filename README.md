@@ -2,6 +2,15 @@
 
 **SciViz** is a Python package designed to simplify the creation of statistical data analysis plots, optimized specifically for the needs of students and researchers. With SciViz, you can effortlessly generate aesthetically pleasing plots for your data visualization tasks using single function calls.
 
+```{python}
+import sciviz as sv
+
+ax = sv.violin(iris, 'species', 'sepal_width', color='species', alpha=0.5, box=sv.box_parameters(), legend=None)
+ax = sv.theme(ax, xlab='Species', ylab='Sepal Width')
+```
+
+<img src="docs/violin_plot.png" align="left" height="200" alt="" />
+
 ## Features
 
 - **Simplicity**: Easy-to-use interface for creating aesthetics plots with minimal effort.
