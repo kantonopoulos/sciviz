@@ -18,7 +18,7 @@ A Venn diagram, or `venn` in SciViz, is a type of diagram that shows all possibl
 
 ## Usage
 ```python
-venn(data, x, group, color_pal=None, alpha=0.8, labels=label_parameters(size=14, font='Arial', color='black'))
+venn(data, x, group, color_pal=None, alpha=0.8, labels=label_parameters(size=14, color='black'))
 ```
 
 ## Arguments
@@ -28,7 +28,7 @@ venn(data, x, group, color_pal=None, alpha=0.8, labels=label_parameters(size=14,
 - `group`: This is the column in the data that you want to group by. Each unique value in this column will be a circle in the Venn diagram.
 - `color_pal`: This is an optional argument that specifies the color palette to use for the different groups. If not specified, a default color palette will be used.
 - `alpha`: This is an optional argument that specifies the transparency of the circles in the Venn diagram. It should be a float between 0 (completely transparent) and 1 (completely opaque). The default value is 0.8.
-- `labels`: This is an optional argument that specifies the parameters for the labels of the circles in the Venn diagram. It should be a dictionary with keys for 'size', 'font', and 'color'. The default values are size 14, font 'Arial', and color 'black'.
+- `labels`: This is an optional argument that specifies the parameters for the labels of the circles in the Venn diagram. It should be a dictionary with keys for 'size' and 'color'. The default values are size 14 and color 'black'.
 
 ```{note}
 SciViz employs the `matplotlib_venn` library for generating Venn diagrams. Uniquely among the plots in this package, Venn diagrams do not support legends, given their infrequent use. Instead, labels are conveniently positioned adjacent to their corresponding Venn circles.
@@ -37,14 +37,13 @@ SciViz employs the `matplotlib_venn` library for generating Venn diagrams. Uniqu
 ### Labels
 
 ```python
-label_parameters(size=12, font='Arial', color='black')
+label_parameters(size=12, color='black')
 ```
 
 This function allows you to customize the appearance of Venn circles labels.
 
 **Arguments**:
 - `size`: The font size of the labels. Default is 12.
-- `font`: The font of the labels. Default is 'Arial'.
 - `color`: The color of the labels. Default is 'black'.
 
 ## Examples

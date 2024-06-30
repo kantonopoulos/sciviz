@@ -20,7 +20,7 @@ The `theme` function allows you to customize the appearance of your plot. You ca
 ```python
 theme(ax, theme='ticks', title=None, xlab=None, ylab=None, xlim=None, ylim=None, xticks=None, 
       yticks=None, xticks_angle=0, yticks_angle=0, title_size=14, axislabel_size=12, 
-      ticklabel_size=11, font='Arial')
+      ticklabel_size=11)
 ```
 
 ## Arguments
@@ -33,7 +33,6 @@ theme(ax, theme='ticks', title=None, xlab=None, ylab=None, xlim=None, ylim=None,
 - `xticks`, `yticks`: These arguments likely specify the tick locations on the x-axis and y-axis, respectively. None means the tick locations will be determined automatically.
 - `xticks_angle`, `yticks_angle`: These arguments likely specify the rotation angles for the x-axis and y-axis tick labels, respectively. The values are in degrees.
 - `title_size`, `axislabel_size`, `ticklabel_size`: These arguments likely specify the font sizes for the title, axis labels, and tick labels, respectively. The values are in points.
-- `font`: This argument likely specifies the font to use for all text elements in the plot. The value 'Arial' refers to the Arial font.
 
 `````{admonition} Tip
 :class: tip

@@ -41,20 +41,19 @@ This is the first time in this package when we will describe functions that act 
 ```
 
 ```python
-label_parameters(size=12, font='Arial', color='black')
+label_parameters(size=12, color='black')
 ```
 
 This function allows you to customize the appearance of pie slices labels.
 
 **Arguments**:
 - `size`: The font size of the labels. Default is 12.
-- `font`: The font of the labels. Default is 'Arial'.
 - `color`: The color of the labels. Default is 'black'.
 
 ### Text
 
 ```python
-text_parameters(format='%1.1f%%', size=11, font='Arial', color='black')
+text_parameters(format='%1.1f%%', size=11, color='black')
 ```
 
 This function allows you to customize the appearance of pie slices inner text.
@@ -62,7 +61,6 @@ This function allows you to customize the appearance of pie slices inner text.
 **Arguments**:
 - `format`: The format of the text. Default is '%1.1f%%', which means the text will be displayed as a percentage with one decimal place.
 - `size`: The font size of the text. Default is 11.
-- `font`: The font of the text. Default is 'Arial'.
 - `color`: The color of the text. Default is 'black'.
 
 ## Examples
