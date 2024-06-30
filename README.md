@@ -9,7 +9,7 @@ ax = sv.violin(iris, 'species', 'sepal_width', color='species', alpha=0.5, box=s
 ax = sv.theme(ax, xlab='Species', ylab='Sepal Width')
 ```
 
-<img src="docs/violin_plot.png" align="left" height="200" alt="" />
+<img src="docs/violin_plot.png" alt="" />
 
 ## Features
 
