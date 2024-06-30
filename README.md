@@ -1,4 +1,4 @@
-# SciViz: Simplifying Plot Creation for Students and Researchers <img src="docs/logo.png" align="right" height="200" alt="" />
+# SciViz: Simplifying Plot Creation <img src="docs/logo.png" align="right" height="200" alt="" />
 
 **SciViz** is a Python package designed to simplify the creation of statistical data analysis plots, optimized specifically for the needs of students and researchers. With SciViz, you can effortlessly generate aesthetically pleasing plots for your data visualization tasks using single function calls.
 
