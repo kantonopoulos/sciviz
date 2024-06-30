@@ -1,0 +1,27 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: preface
+parts:
+  - caption: General
+    chapters:
+      - file: introduction.md
+      - file: prerequisites.md
+  - caption: Plots
+    chapters:
+      - file: points.md
+      - file: line.md
+      - file: pie.md
+      - file: histogram.md
+      - file: bar.md
+      - file: jitter.md
+      - file: boxplot.md
+      - file: violin.md
+      - file: venn.md
+      - file: heatmap.md
+  - caption: Aesthetics & Legend
+    chapters:
+      - file: aesthetics.md
+      - file: legend.md
+

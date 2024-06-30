@@ -1,0 +1,11 @@
+LICENSE.txt
+README.md
+setup.py
+app/sciviz/__init__.py
+app/sciviz.egg-info/PKG-INFO
+app/sciviz.egg-info/SOURCES.txt
+app/sciviz.egg-info/dependency_links.txt
+app/sciviz.egg-info/requires.txt
+app/sciviz.egg-info/top_level.txt
+app/sciviz/src/__init__.py
+app/sciviz/src/sciviz.py

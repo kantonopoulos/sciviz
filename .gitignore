@@ -1,0 +1,12 @@
+# Folders
+.ipynb_checkpoints/
+/docs/conf.py
+/docs/_build
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# auto-generated Sphinx api docs
+/docs/generated
