@@ -30,6 +30,15 @@ pip install sciviz
 
 For more in-depth documentation, including detailed usage examples refer to the [package vignette](https://sciviz.readthedocs.io/en/latest/preface.html).
 
+## Acknowledgments
+
+SciViz is built mainly on top of seaborn. Other projects used are:
+
+- matplotlib
+- matplotlib-venn
+- numpy
+- pandas
+
 ## Contributing
 
 Contributions are welcome! Please fork your contribution or reach out to discuss new ideas.
