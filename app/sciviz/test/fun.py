@@ -15,7 +15,7 @@ def color_seq_palette(color_val, users_palette=None):
         list: A sequential color palette.
 
     """
-    if users_palette:
+    if type(users_palette) == list:
         if len(color_val.unique()) > len(users_palette):
             # cycle the user-defined palette if it has fewer colors than the unique values in color_val
             color_pal = users_palette * (len(color_val.unique()) // len(users_palette)) + users_palette[:len(color_val.unique()) % len(users_palette)]
@@ -23,20 +23,23 @@ def color_seq_palette(color_val, users_palette=None):
         else:
             color_pal = users_palette
             color_pal = sns.color_palette(color_pal)
+    elif type(users_palette) == str:
+        color_pal = users_palette
+        color_pal = sns.color_palette(color_pal)
     elif len(color_val.unique()) > 10 and users_palette is None:
         color_pal = sns.color_palette('deep')
     else:
         minimal = [
             '#2271B5',
-            '#9E0142',
+            '#DC0000',
             '#528A63',
-            '#FFFF80',
+            '#FEED70',
             '#603479',
             '#A6CEE3',
             '#E8A29A',
             '#ADC74F',
             '#B195AE',
-            '#504538',
+            '#7E6148'
         ]
         color_pal = sns.color_palette(minimal)
     return color_pal[:len(color_val.unique())]
@@ -630,9 +633,9 @@ def legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, t
     return legend_params
 
 
-def x_y_axis_main(ax, x_label, y_label, xlim, ylim, label_size, font_name):
+def x_y_axis_main(ax, x_label, y_label, xlim, ylim, label_size):
     """
-    Set the x and y axis labels, limits, and font properties for a given matplotlib Axes object.
+    Set the x and y axis labels, limits, and font size properties for a given matplotlib Axes object.
 
     Args:
         ax (matplotlib.axes.Axes): The Axes object to modify.
@@ -641,7 +644,6 @@ def x_y_axis_main(ax, x_label, y_label, xlim, ylim, label_size, font_name):
         xlim (tuple): The limits for the x-axis (e.g., (xmin, xmax)).
         ylim (tuple): The limits for the y-axis (e.g., (ymin, ymax)).
         label_size (int): The font size for the axis labels.
-        font_name (str): The name of the font to use for the axis labels.
 
     Returns:
         matplotlib.axes.Axes: The modified Axes object.
@@ -653,14 +655,12 @@ def x_y_axis_main(ax, x_label, y_label, xlim, ylim, label_size, font_name):
         ax.set_ylabel(ylabel=y_label)
     ax.xaxis.label.set_size(label_size)
     ax.yaxis.label.set_size(label_size)
-    ax.xaxis.label.set_fontname(font_name)
-    ax.yaxis.label.set_fontname(font_name)
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
     return ax
 
 
-def x_y_axis_ticks(ax, xticks, yticks, xticks_angle, yticks_angle, tick_size, font_name):
+def x_y_axis_ticks(ax, xticks, yticks, xticks_angle, yticks_angle, tick_size):
     """
     Set the tick labels and sizes for the x and y axes of a given matplotlib Axes object.
 
@@ -671,7 +671,6 @@ def x_y_axis_ticks(ax, xticks, yticks, xticks_angle, yticks_angle, tick_size, fo
         xticks_angle (int): The rotation angle of the x-axis tick labels.
         yticks_angle (int): The rotation angle of the y-axis tick labels.
         tick_size (int): The font size of the tick labels.
-        font_name (str): The name of the font to be used for the tick labels.
 
     Returns:
         matplotlib.axes.Axes: The modified Axes object.
@@ -691,11 +690,9 @@ def x_y_axis_ticks(ax, xticks, yticks, xticks_angle, yticks_angle, tick_size, fo
         ax.set_yticklabels(ax.get_yticklabels(), ha='center', va='center')
     for label in ax.get_xticklabels():
         label.set_fontsize(tick_size)
-        label.set_fontname(font_name)
 
     for label in ax.get_yticklabels():
         label.set_fontsize(tick_size)
-        label.set_fontname(font_name)
     return ax
 
 
@@ -718,7 +715,6 @@ def theme(ax, theme='ticks', title=None, xlab=None, ylab=None, xlim=None, ylim=N
         title_size (int): The font size for the title.
         axislabel_size (int): The font size for the axis labels.
         ticklabel_size (int): The font size for the tick labels.
-        font (str): The name of the font to use for the labels and tick labels.
 
     Returns:
         matplotlib Axes: The modified Axes object.
@@ -731,16 +727,12 @@ def theme(ax, theme='ticks', title=None, xlab=None, ylab=None, xlim=None, ylim=N
     if theme == 'classic':
         ax.spines[['right', 'top']].set_visible(False)
 
-    plt.rcParams['font.family'] = font
     if title:
         plt.title(title, fontsize=title_size)
 
-    ax = x_y_axis_main(ax=ax, x_label=xlab, y_label=ylab, xlim=xlim, ylim=ylim, label_size=axislabel_size, font_name=font)
-    ax = x_y_axis_ticks(ax=ax, xticks=xticks, yticks=yticks, xticks_angle=xticks_angle, yticks_angle=yticks_angle, tick_size=ticklabel_size, font_name=font)
-    legend = ax.get_legend()
-    if legend:
-        for text in legend.get_texts():
-            text.set_fontname(font)
+    ax = x_y_axis_main(ax=ax, x_label=xlab, y_label=ylab, xlim=xlim, ylim=ylim, label_size=axislabel_size)
+    ax = x_y_axis_ticks(ax=ax, xticks=xticks, yticks=yticks, xticks_angle=xticks_angle, yticks_angle=yticks_angle, tick_size=ticklabel_size)
+
     return ax
 
 
@@ -794,13 +786,12 @@ def crossbar_parameters(color_val=None, color_pal=['black'], barstyle='_', barsi
     return crossbar_params
 
 
-def label_parameters(size=12, font='Arial', color='black'):
+def label_parameters(size=12, color='black'):
     """
     Returns a dictionary of label parameters.
 
     Args:
         size (int, optional): The font size of the label. Defaults to 12.
-        font (str, optional): The font family of the label. Defaults to 'Arial'.
         color (str, optional): The color of the label. Defaults to 'black'.
 
     Returns:
@@ -809,20 +800,18 @@ def label_parameters(size=12, font='Arial', color='black'):
     """
     label_params = {
         'size': size,
-        'font': font,  
         'color': color
     }
     return label_params
 
 
-def text_parameters(format='%1.1f%%', size=11, font='Arial', color='black'):
+def text_parameters(format='%1.1f%%', size=11, color='black'):
     """
     Returns a dictionary of text parameters.
 
     Args:
         format (str, optional): The format string for text. Defaults to '%1.1f%%'.
         size (int, optional): The font size. Defaults to 11.
-        font (str, optional): The font family. Defaults to 'Arial'.
         color (str, optional): The text color. Defaults to 'black'.
 
     Returns:
@@ -832,7 +821,6 @@ def text_parameters(format='%1.1f%%', size=11, font='Arial', color='black'):
     text_params = {
         'format': format,
         'size': size,
-        'font': font,  
         'color': color
     }
     return text_params
@@ -1001,7 +989,7 @@ def count_values_ordered(data, color, order):
     return counts.index.tolist(), counts.values.tolist()
 
 
-def point(data, x, y, color=None, shape=None, size=50, alpha=0.8, color_pal=None, shape_pal=None, size_pal=[50, 150], color_order=None, shape_order=None, size_order=None, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
+def point(data, x, y, color=None, shape=None, size=50, alpha=0.7, color_pal=None, shape_pal=None, size_pal=[50, 150], color_order=None, shape_order=None, size_order=None, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
     """
     Create a scatter plot of x vs y with varying marker color, shape, and size.
 
@@ -1019,7 +1007,7 @@ def point(data, x, y, color=None, shape=None, size=50, alpha=0.8, color_pal=None
         color_order (list or None): Order of the color values. Default is None.
         shape_order (list or None): Order of the shape values. Default is None.
         size_order (list or None): Order of the size values. Default is None.
-        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters(orient='vertical', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11).
+        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters().
 
     Returns:
         matplotlib.axes.Axes: The matplotlib Axes object containing the scatter plot.
@@ -1080,7 +1068,7 @@ def point(data, x, y, color=None, shape=None, size=50, alpha=0.8, color_pal=None
     return ax
 
 
-def histogram(data, x, y=None, color=None, stat='count', bins='auto', binwidth=None, color_pal=None, color_order=None, edgecolor='black', alpha=0.8, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
+def histogram(data, x, y=None, color=None, stat='count', bins='auto', binwidth=None, color_pal=None, color_order=None, edgecolor='black', alpha=0.7, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
     """
     Plots a histogram using the given data and parameters.
 
@@ -1096,7 +1084,7 @@ def histogram(data, x, y=None, color=None, stat='count', bins='auto', binwidth=N
         color_order (list, optional): The order of colors for the color encoding. Defaults to None.
         edgecolor (str, optional): The color of the edges of the bars. Defaults to 'black'.
         alpha (float, optional): The transparency of the bars. Defaults to 0.8.
-        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters(orient='vertical', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11).
+        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters().
 
     Returns:
         AxesSubplot: The matplotlib AxesSubplot object.
@@ -1148,14 +1136,14 @@ def histogram(data, x, y=None, color=None, stat='count', bins='auto', binwidth=N
     return ax
 
 
-def bar(data, x, y=None, color=None, order=None, stat='mean', color_pal=None, color_order=None, fill=True, orient='v', width=0.4, edgecolor='black', alpha=0.8, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11), errorbar=None):
+def bar(data, x, y, color=None, order=None, stat='mean', color_pal=None, color_order=None, fill=True, orient='v', width=0.4, edgecolor='black', alpha=0.7, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11), errorbar=None):
     """
     Create a bar plot.
 
     Args:
         data (pandas.DataFrame): The input data.
         x (str): The column name for the x-axis.
-        y (str, optional): The column name for the y-axis. Defaults to None.
+        y (str): The column name for the y-axis. 
         color (str, optional): The column name for the color encoding. Defaults to None.
         order (list, optional): The order of the x-axis categories. Defaults to None.
         stat (str, optional): The statistical function to compute for each category. Defaults to 'mean'. Examples of possible values are 'mean', 'median', 'count', 'sum', 'min', 'max', 'std', etc. 
@@ -1232,7 +1220,7 @@ def bar(data, x, y=None, color=None, order=None, stat='mean', color_pal=None, co
     return ax
     
 
-def jitter(data, x, y, color=None, order=None, jitter=True, dodge=False, size=50, color_pal=None, color_order=None, orient='v', alpha=0.8, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11), crossbar=None):
+def jitter(data, x, y, color=None, order=None, jitter=True, dodge=False, size=50, color_pal=None, color_order=None, orient='v', alpha=0.7, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11), crossbar=None):
     """
     Plots a jitter plot with optional crossbars.
 
@@ -1249,7 +1237,7 @@ def jitter(data, x, y, color=None, order=None, jitter=True, dodge=False, size=50
         color_order (list, optional): The order of the color groups. Defaults to None.
         orient (str, optional): The orientation of the plot ('v' for vertical, 'h' for horizontal). Defaults to 'v'.
         alpha (float, optional): The transparency of the data points. Defaults to 0.8.
-        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11).
+        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters().
         crossbar (dict, optional): The parameters for the crossbars. Defaults to None.
 
     Returns:
@@ -1264,6 +1252,7 @@ def jitter(data, x, y, color=None, order=None, jitter=True, dodge=False, size=50
         color_pal = color_seq_palette(color_val=data[color], users_palette=color_pal)
 
     fig, ax = plt.subplots(figsize=(6, 6))
+
     sns.stripplot(
         data=data, 
         x=x, 
@@ -1300,7 +1289,7 @@ def jitter(data, x, y, color=None, order=None, jitter=True, dodge=False, size=50
             legend=False,
             ax=ax
         )
-        
+   
     if legend:
         ax = legend_create(
             ax=ax,
@@ -1322,7 +1311,7 @@ def jitter(data, x, y, color=None, order=None, jitter=True, dodge=False, size=50
     return ax
 
 
-def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0.8, donut=False, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
+def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0.7, donut=False, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
     """
     Creates a pie chart based on the given data.
 
@@ -1335,7 +1324,7 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
         text (dict, optional): The text configuration for the pie chart. Defaults to None.
         alpha (float, optional): The transparency of the pie slices. Defaults to 0.8.
         donut (bool, optional): If True, creates a donut chart instead of a regular pie chart. Defaults to False.
-        legend (dict, optional): The legend configuration for the pie chart. Defaults to legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11).
+        legend (dict, optional): The legend configuration for the pie chart. Defaults to legend_parameters().
 
     Returns:
         ax (Axes): The matplotlib Axes object containing the pie chart.
@@ -1349,7 +1338,6 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
     if text:
         text_format = text['format']
         text_size = text['size']
-        text_font = text['font']
         text_color = text['color']
 
     fig, ax = plt.subplots(figsize=(6, 6))
@@ -1357,7 +1345,7 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
         x=values, 
         labels=labels_val if labels else None, 
         autopct=text_format if text else '', 
-        textprops=dict(color=text_color, fontsize=text_size, family=text_font) if text else None,
+        textprops=dict(color=text_color, fontsize=text_size) if text else None,
         startangle=90, 
         colors=color_pal, 
         wedgeprops={'alpha': alpha},
@@ -1366,17 +1354,15 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
 
     if labels:
         label_size = labels['size']
-        label_font = labels['font']
         label_color = labels['color']
 
     if donut == True:
         my_circle=plt.Circle( (0,0), 0.7, color='white')
         p = plt.gcf()
         p.gca().add_artist(my_circle)
-    if text != None:
+    if labels != None:
         for text in range(len(texts)):
             texts[text].set_fontsize(label_size)
-            texts[text].set_fontfamily(label_font)
             texts[text].set_color(label_color)
     ax.axis('equal')
     
@@ -1401,7 +1387,7 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
     return ax
 
 
-def boxplot(data, x, y, color=None, order=None, outliers=outlier_parameters(color='black', shape='o', size=5), caps=False, color_pal=None, color_order=None, fill=True, orient='v', width=0.4, edgecolor='black', alpha=0.8, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11), jitter=None):
+def boxplot(data, x, y, color=None, order=None, outliers=outlier_parameters(color='black', shape='o', size=4), caps=False, color_pal=None, color_order=None, fill=True, orient='v', width=0.4, edgecolor='black', alpha=0.7, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11), jitter=None):
     """
     Creates a box plot with optional overlaying data points.
 
@@ -1420,7 +1406,7 @@ def boxplot(data, x, y, color=None, order=None, outliers=outlier_parameters(colo
         width (float, optional): The width of the boxes. Defaults to 0.4.
         edgecolor (str, optional): The color of the box edges. Defaults to 'black'.
         alpha (float, optional): The transparency of the boxes. Defaults to 0.8.
-        legend (legend_parameters, optional): The legend parameters. Defaults to legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11).
+        legend (legend_parameters, optional): The legend parameters. Defaults to legend_parameters().
         jitter (jitter_parameters, optional): The jitter parameters. Defaults to None.
 
     Returns:
@@ -1507,7 +1493,7 @@ def boxplot(data, x, y, color=None, order=None, outliers=outlier_parameters(colo
     return ax
 
 
-def line(data, x, y, color=None, shape=None, group=None, stat=None, errorbar=None, errorbar_style='bars', alpha=0.8, color_pal=None, shape_pal=None, color_order=None, shape_order=None, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
+def line(data, x, y, color=None, shape=None, stat='mean', errorbar=None, errorbar_style='bars', alpha=0.7, color_pal=None, shape_pal=None, color_order=None, shape_order=None, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
     """
     Plots a line chart using the provided data.
 
@@ -1517,16 +1503,16 @@ def line(data, x, y, color=None, shape=None, group=None, stat=None, errorbar=Non
         y (str): The column name for the y-axis.
         color (str, optional): The column name for coloring the lines. Defaults to None.
         shape (str, optional): The column name for shaping the lines. Defaults to None.
-        group (str, optional): The column name for grouping the lines. Defaults to None.
         stat (str, optional): The statistical function to apply. Defaults to None.
-        errorbar (str, optional): The column name for error bars. Defaults to None.
+        errorbar (str or tuple, optional): Name of errorbar method (either 'ci', 'pi', 'se', or 'sd'), 
+            or a tuple with a method name and a level parameter. Defaults to None.
         errorbar_style (str, optional): The style of error bars. Defaults to 'bars'.
         alpha (float, optional): The transparency of the lines. Defaults to 0.8.
         color_pal (str, optional): The color palette to use. Defaults to None.
         shape_pal (str, optional): The shape palette to use. Defaults to None.
         color_order (list, optional): The order of colors. Defaults to None.
         shape_order (list, optional): The order of shapes. Defaults to None.
-        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11).
+        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters().
 
     Returns:
         Axes: The matplotlib Axes object containing the line chart.
@@ -1541,8 +1527,7 @@ def line(data, x, y, color=None, shape=None, group=None, stat=None, errorbar=Non
         x=x, 
         y=y, 
         hue=color, 
-        style=shape, 
-        units=group, 
+        style=shape,
         palette=color_pal, 
         hue_order=color_order,        
         markers=shape_pal, 
@@ -1575,7 +1560,7 @@ def line(data, x, y, color=None, shape=None, group=None, stat=None, errorbar=Non
     return ax
 
 
-def violin(data, x, y, color=None, order=None, color_pal=None, color_order=None, fill=True, split=False, orient='v', width=0.4, edgecolor='black', alpha=0.8, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11), box=None):
+def violin(data, x, y, color=None, order=None, color_pal=None, color_order=None, fill=True, split=False, orient='v', width=0.4, edgecolor='black', alpha=0.7, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11), box=None):
     """
     Creates a violin plot with optional box plot overlay.
 
@@ -1593,7 +1578,7 @@ def violin(data, x, y, color=None, order=None, color_pal=None, color_order=None,
         width (float, optional): The width of the violin plot. Defaults to 0.4.
         edgecolor (str, optional): The color of the violin plot edges. Defaults to 'black'.
         alpha (float, optional): The transparency of the violin plot. Defaults to 0.8.
-        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11).
+        legend (dict, optional): The parameters for the legend. Defaults to legend_parameters().
         box (dict, optional): The parameters for the box plot overlay. Defaults to None.
 
     Returns:
@@ -1676,7 +1661,7 @@ def violin(data, x, y, color=None, order=None, color_pal=None, color_order=None,
     return ax
 
 
-def venn(data, x, group, color_pal=None, alpha=0.8, labels=label_parameters(size=14, font='Arial', color='black')):
+def venn(data, x, group, color_pal=None, alpha=0.7, labels=label_parameters(size=14, color='black')):
     """
     Creates a Venn diagram based on the given data.
 
@@ -1686,7 +1671,7 @@ def venn(data, x, group, color_pal=None, alpha=0.8, labels=label_parameters(size
         group (str): The column name in the data to group the Venn diagram by.
         color_pal (list, optional): The color palette to use for the Venn diagram. Defaults to None.
         alpha (float, optional): The transparency level of the Venn diagram. Defaults to 0.8.
-        labels (dict, optional): The parameters for customizing the labels of the Venn diagram. Defaults to label_parameters(size=14, font='Arial', color='black').
+        labels (dict, optional): The parameters for customizing the labels of the Venn diagram. Defaults to label_parameters(size=14, color='black').
 
     Returns:
         matplotlib.axes.Axes: The axes object containing the Venn diagram.
@@ -1721,7 +1706,6 @@ def venn(data, x, group, color_pal=None, alpha=0.8, labels=label_parameters(size
         for text in ax.set_labels:
             if text:
                 text.set_fontsize(labels['size'])
-                text.set_fontfamily(labels['font'])
                 text.set_color(labels['color'])
     return ax
 
@@ -1746,7 +1730,7 @@ def heatmap(data, gradient_pal='Spectral', row_cluster=True, col_cluster=True, d
         col2_pal (list, optional): The color palette for the second column annotation. Defaults to None.
         cbar (bool, optional): Whether to show the colorbar. Defaults to True.
         ticks (dict, optional): The tick parameters for the heatmap. Defaults to tick_parameters(xticks=True, yticks=True, xticks_angle=0, yticks_angle=0, ticklabel_size=11).
-        legend (dict, optional): The legend parameters for the heatmap. Defaults to legend_parameters(orient='v', posx=1.1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11).
+        legend (dict, optional): The legend parameters for the heatmap. Defaults to legend_parameters().
 
     Returns:
         ax: The matplotlib Axes object containing the heatmap plot.
