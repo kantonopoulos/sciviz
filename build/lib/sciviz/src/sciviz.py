@@ -633,9 +633,9 @@ def legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, t
     return legend_params
 
 
-def x_y_axis_main(ax, x_label, y_label, xlim, ylim, label_size, font_name):
+def x_y_axis_main(ax, x_label, y_label, xlim, ylim, label_size):
     """
-    Set the x and y axis labels, limits, and font properties for a given matplotlib Axes object.
+    Set the x and y axis labels, limits, and font size properties for a given matplotlib Axes object.
 
     Args:
         ax (matplotlib.axes.Axes): The Axes object to modify.
@@ -644,7 +644,6 @@ def x_y_axis_main(ax, x_label, y_label, xlim, ylim, label_size, font_name):
         xlim (tuple): The limits for the x-axis (e.g., (xmin, xmax)).
         ylim (tuple): The limits for the y-axis (e.g., (ymin, ymax)).
         label_size (int): The font size for the axis labels.
-        font_name (str): The name of the font to use for the axis labels.
 
     Returns:
         matplotlib.axes.Axes: The modified Axes object.
@@ -656,14 +655,12 @@ def x_y_axis_main(ax, x_label, y_label, xlim, ylim, label_size, font_name):
         ax.set_ylabel(ylabel=y_label)
     ax.xaxis.label.set_size(label_size)
     ax.yaxis.label.set_size(label_size)
-    ax.xaxis.label.set_fontname(font_name)
-    ax.yaxis.label.set_fontname(font_name)
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
     return ax
 
 
-def x_y_axis_ticks(ax, xticks, yticks, xticks_angle, yticks_angle, tick_size, font_name):
+def x_y_axis_ticks(ax, xticks, yticks, xticks_angle, yticks_angle, tick_size):
     """
     Set the tick labels and sizes for the x and y axes of a given matplotlib Axes object.
 
@@ -674,7 +671,6 @@ def x_y_axis_ticks(ax, xticks, yticks, xticks_angle, yticks_angle, tick_size, fo
         xticks_angle (int): The rotation angle of the x-axis tick labels.
         yticks_angle (int): The rotation angle of the y-axis tick labels.
         tick_size (int): The font size of the tick labels.
-        font_name (str): The name of the font to be used for the tick labels.
 
     Returns:
         matplotlib.axes.Axes: The modified Axes object.
@@ -694,11 +690,9 @@ def x_y_axis_ticks(ax, xticks, yticks, xticks_angle, yticks_angle, tick_size, fo
         ax.set_yticklabels(ax.get_yticklabels(), ha='center', va='center')
     for label in ax.get_xticklabels():
         label.set_fontsize(tick_size)
-        label.set_fontname(font_name)
 
     for label in ax.get_yticklabels():
         label.set_fontsize(tick_size)
-        label.set_fontname(font_name)
     return ax
 
 
@@ -721,7 +715,6 @@ def theme(ax, theme='ticks', title=None, xlab=None, ylab=None, xlim=None, ylim=N
         title_size (int): The font size for the title.
         axislabel_size (int): The font size for the axis labels.
         ticklabel_size (int): The font size for the tick labels.
-        font (str): The name of the font to use for the labels and tick labels.
 
     Returns:
         matplotlib Axes: The modified Axes object.
@@ -734,16 +727,12 @@ def theme(ax, theme='ticks', title=None, xlab=None, ylab=None, xlim=None, ylim=N
     if theme == 'classic':
         ax.spines[['right', 'top']].set_visible(False)
 
-    plt.rcParams['font.family'] = font
     if title:
         plt.title(title, fontsize=title_size)
 
-    ax = x_y_axis_main(ax=ax, x_label=xlab, y_label=ylab, xlim=xlim, ylim=ylim, label_size=axislabel_size, font_name=font)
-    ax = x_y_axis_ticks(ax=ax, xticks=xticks, yticks=yticks, xticks_angle=xticks_angle, yticks_angle=yticks_angle, tick_size=ticklabel_size, font_name=font)
-    legend = ax.get_legend()
-    if legend:
-        for text in legend.get_texts():
-            text.set_fontname(font)
+    ax = x_y_axis_main(ax=ax, x_label=xlab, y_label=ylab, xlim=xlim, ylim=ylim, label_size=axislabel_size)
+    ax = x_y_axis_ticks(ax=ax, xticks=xticks, yticks=yticks, xticks_angle=xticks_angle, yticks_angle=yticks_angle, tick_size=ticklabel_size)
+
     return ax
 
 
@@ -797,13 +786,12 @@ def crossbar_parameters(color_val=None, color_pal=['black'], barstyle='_', barsi
     return crossbar_params
 
 
-def label_parameters(size=12, font='Arial', color='black'):
+def label_parameters(size=12, color='black'):
     """
     Returns a dictionary of label parameters.
 
     Args:
         size (int, optional): The font size of the label. Defaults to 12.
-        font (str, optional): The font family of the label. Defaults to 'Arial'.
         color (str, optional): The color of the label. Defaults to 'black'.
 
     Returns:
@@ -812,20 +800,18 @@ def label_parameters(size=12, font='Arial', color='black'):
     """
     label_params = {
         'size': size,
-        'font': font,  
         'color': color
     }
     return label_params
 
 
-def text_parameters(format='%1.1f%%', size=11, font='Arial', color='black'):
+def text_parameters(format='%1.1f%%', size=11, color='black'):
     """
     Returns a dictionary of text parameters.
 
     Args:
         format (str, optional): The format string for text. Defaults to '%1.1f%%'.
         size (int, optional): The font size. Defaults to 11.
-        font (str, optional): The font family. Defaults to 'Arial'.
         color (str, optional): The text color. Defaults to 'black'.
 
     Returns:
@@ -835,7 +821,6 @@ def text_parameters(format='%1.1f%%', size=11, font='Arial', color='black'):
     text_params = {
         'format': format,
         'size': size,
-        'font': font,  
         'color': color
     }
     return text_params
@@ -1353,7 +1338,6 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
     if text:
         text_format = text['format']
         text_size = text['size']
-        text_font = text['font']
         text_color = text['color']
 
     fig, ax = plt.subplots(figsize=(6, 6))
@@ -1361,7 +1345,7 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
         x=values, 
         labels=labels_val if labels else None, 
         autopct=text_format if text else '', 
-        textprops=dict(color=text_color, fontsize=text_size, family=text_font) if text else None,
+        textprops=dict(color=text_color, fontsize=text_size) if text else None,
         startangle=90, 
         colors=color_pal, 
         wedgeprops={'alpha': alpha},
@@ -1370,7 +1354,6 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
 
     if labels:
         label_size = labels['size']
-        label_font = labels['font']
         label_color = labels['color']
 
     if donut == True:
@@ -1380,7 +1363,6 @@ def pie(data, color, order=None, color_pal=None, labels=None, text=None, alpha=0
     if labels != None:
         for text in range(len(texts)):
             texts[text].set_fontsize(label_size)
-            texts[text].set_fontfamily(label_font)
             texts[text].set_color(label_color)
     ax.axis('equal')
     
@@ -1679,7 +1661,7 @@ def violin(data, x, y, color=None, order=None, color_pal=None, color_order=None,
     return ax
 
 
-def venn(data, x, group, color_pal=None, alpha=0.7, labels=label_parameters(size=14, font='Arial', color='black')):
+def venn(data, x, group, color_pal=None, alpha=0.7, labels=label_parameters(size=14, color='black')):
     """
     Creates a Venn diagram based on the given data.
 
@@ -1689,7 +1671,7 @@ def venn(data, x, group, color_pal=None, alpha=0.7, labels=label_parameters(size
         group (str): The column name in the data to group the Venn diagram by.
         color_pal (list, optional): The color palette to use for the Venn diagram. Defaults to None.
         alpha (float, optional): The transparency level of the Venn diagram. Defaults to 0.8.
-        labels (dict, optional): The parameters for customizing the labels of the Venn diagram. Defaults to label_parameters(size=14, font='Arial', color='black').
+        labels (dict, optional): The parameters for customizing the labels of the Venn diagram. Defaults to label_parameters(size=14, color='black').
 
     Returns:
         matplotlib.axes.Axes: The axes object containing the Venn diagram.
@@ -1724,7 +1706,6 @@ def venn(data, x, group, color_pal=None, alpha=0.7, labels=label_parameters(size
         for text in ax.set_labels:
             if text:
                 text.set_fontsize(labels['size'])
-                text.set_fontfamily(labels['font'])
                 text.set_color(labels['color'])
     return ax
 
