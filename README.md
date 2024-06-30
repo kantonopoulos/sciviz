@@ -2,6 +2,9 @@
 
 **SciViz** is a Python package designed to simplify the creation of statistical data analysis plots, optimized specifically for the needs of students and researchers. With SciViz, you can effortlessly generate aesthetically pleasing plots for your data visualization tasks using single function calls.
 
+<br>
+<br>
+
 ```{python}
 import sciviz as sv
 
