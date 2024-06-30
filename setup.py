@@ -5,7 +5,7 @@ with open("app/README.md", "r") as f:
 
 setup(
     name="sciviz",
-    version="0.1.0",
+    version="0.1.1",
     description="A package to simplify scientific visualization",
     package_dir={"": "app"},
     packages=find_packages(where="app"),
