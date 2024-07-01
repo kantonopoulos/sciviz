@@ -1,6 +1,20 @@
 # SciViz: Simplifying Plot Creation <img src="docs/logo.png" align="right" height="200" alt="" />
 
+[![PyPI Version](https://img.shields.io/badge/pypi-v0.1.1-blue)](https://pypi.org/project/sciviz/)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](https://github.com/kantonopoulos/sciviz/blob/main/LICENSE.txt)
+
 **SciViz** is a Python package designed to simplify the creation of statistical data analysis plots, optimized specifically for the needs of students and researchers. With SciViz, you can effortlessly generate aesthetically pleasing plots for your data visualization tasks using single function calls.
+
+<br>
+
+```{python}
+import sciviz as sv
+
+ax = sv.violin(iris, 'species', 'sepal_width', color='species', alpha=0.5, box=sv.box_parameters(), legend=None)
+ax = sv.theme(ax, xlab='Species', ylab='Sepal Width')
+```
+
+<img src="docs/violin_plot.png" alt="" />
 
 ## Features
 
@@ -17,6 +31,15 @@ pip install sciviz
 ## Documentation
 
 For more in-depth documentation, including detailed usage examples refer to the [package vignette](https://sciviz.readthedocs.io/en/latest/preface.html).
+
+## Acknowledgments
+
+SciViz is built mainly on top of seaborn. Other projects used are:
+
+- matplotlib
+- matplotlib-venn
+- numpy
+- pandas
 
 ## Contributing
 
