@@ -4,7 +4,7 @@
 /docs/_build
 /dist
 /build
-/app/sciviz.egg-info
+/sciviz/sciviz.egg-info
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

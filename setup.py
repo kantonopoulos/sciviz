@@ -1,14 +1,14 @@
 from setuptools import find_packages, setup
 
-with open("app/README.md", "r") as f:
+with open("sciviz/README.md", "r") as f:
     long_description = f.read()
 
 setup(
     name="sciviz",
-    version="0.1.1",
+    version="0.1.2",
     description="A package to simplify scientific visualization",
-    package_dir={"": "app"},
-    packages=find_packages(where="app"),
+    package_dir={"": "sciviz"},
+    packages=find_packages(where="sciviz"),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/kantonopoulos/SciViz",
