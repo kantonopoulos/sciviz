@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-from palettes import set_order, set_palettes
-from legends import legend_create, legend_parameters
+from .palettes import set_order, set_palettes
+from .legends import legend_create, legend_parameters
 
 def point(data, x, y, color=None, shape=None, size=50, alpha=0.7, color_pal=None, shape_pal=None, size_pal=[50, 150], color_order=None, shape_order=None, size_order=None, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):
     """

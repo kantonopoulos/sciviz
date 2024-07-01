@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pandas import DataFrame, Series
-from palettes import color_seq_palette, color_cont_palette
-from legends import legend_parameters, legend_title, legend_color, legend_spacer
+from .palettes import color_seq_palette, color_cont_palette
+from .legends import legend_parameters, legend_title, legend_color, legend_spacer
 
 def tick_parameters(xticks=True, yticks=True, xticks_angle=0, yticks_angle=0, ticklabel_size=11):
     """

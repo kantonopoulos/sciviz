@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-from misc_utils import alpha_fill, edgecolor_pal, count_values_ordered 
-from palettes import color_seq_palette
-from legends import legend_create, legend_parameters
+from .misc_utils import alpha_fill, edgecolor_pal
+from .palettes import color_seq_palette
+from .legends import legend_create, legend_parameters
 
 
 def error_parameters(errorbar=('ci', 95), color_pal=['black'], linestyle='-', linewidth=1, capsize=0.2):

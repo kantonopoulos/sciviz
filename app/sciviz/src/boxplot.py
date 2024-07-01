@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-from misc_utils import alpha_fill
-from palettes import color_seq_palette
-from legends import legend_create, legend_parameters
+from .misc_utils import alpha_fill
+from .palettes import color_seq_palette
+from .legends import legend_create, legend_parameters
 
 
 def outlier_parameters(color='black', shape='o', size=5):

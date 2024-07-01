@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-from palettes import color_seq_palette
-from legends import legend_create, legend_parameters
+from .palettes import color_seq_palette
+from .legends import legend_create, legend_parameters
 
 
 def histogram(data, x, y=None, color=None, stat='count', bins='auto', binwidth=None, color_pal=None, color_order=None, edgecolor='black', alpha=0.7, legend=legend_parameters(orient='v', posx=1, posy=0.5, title=True, title_size=12, title_bold=False, label_size=11)):

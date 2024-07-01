@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
-from misc_utils import count_values_ordered 
-from palettes import color_seq_palette
-from legends import legend_create, legend_parameters
+from .misc_utils import count_values_ordered 
+from .palettes import color_seq_palette
+from .legends import legend_create, legend_parameters
 
 
 def label_parameters(size=12, color='black'):

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-from palettes import color_seq_palette
-from legends import legend_create, legend_parameters
+from .palettes import color_seq_palette
+from .legends import legend_create, legend_parameters
 
 
 def crossbar_parameters(color_val=None, color_pal=['black'], barstyle='_', barsize=20, barwidth=3):

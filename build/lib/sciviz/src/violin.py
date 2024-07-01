@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-from palettes import color_seq_palette
-from legends import legend_create, legend_parameters
+from .palettes import color_seq_palette
+from .legends import legend_create, legend_parameters
 
 
 def box_parameters(fill_color='white', edge_color='black', edge_width=1, median_color='black', median_width=1.5, outliers=True, outlier_color='black', outlier_shape='o', outlier_size=2):

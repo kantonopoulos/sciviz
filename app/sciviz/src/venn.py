@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn2, venn3
-from palettes import color_seq_palette
-from pie import label_parameters
+from .palettes import color_seq_palette
+from .pie import label_parameters
 
 
 def venn(data, x, group, color_pal=None, alpha=0.7, labels=label_parameters(size=14, color='black')):
