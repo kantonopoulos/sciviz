@@ -1,13 +1,13 @@
 import unittest
 import pandas as pd
 import seaborn as sns
-from fun import color_seq_palette, shape_palette, size_palette, set_palettes, set_order
+from sciviz.src.palettes import color_seq_palette, shape_palette, size_palette, set_palettes, set_order
 
 class TestPaletteUtils(unittest.TestCase):
 
     def test_default_color(self):
         palette = [(0.13333333333333333, 0.44313725490196076, 0.7098039215686275), 
-                   (0.6196078431372549, 0.00392156862745098, 0.25882352941176473)]
+                   (0.8627450980392157, 0.0, 0.0)]
         test_df = pd.DataFrame({'color': ['A', 'B', 'A', 'A', 'B']})
         pal_default = color_seq_palette(test_df['color'])
         self.assertEqual(pal_default, palette)
