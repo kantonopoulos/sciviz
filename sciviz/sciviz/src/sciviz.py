@@ -26,6 +26,21 @@ def axis_scales(scales):
     return sharex, sharey
 
 def sciviz(data, height=4, aspect=1, cols=None, rows=None, col_wrap=None, scales='fixed'):
+    """Create a figure or FacetGrid.
+
+    Args:
+        data (pandas.DataFrame): The data to plot.
+        height (float): The height of the figure or FacetGrid. Default is 4.
+        aspect (float): The aspect ratio of the figure or FacetGrid. Default is 1.
+        cols (str): The column name to facet the columns by. Default is None.
+        rows (str): The column name to facet the rows by. Default is None.
+        col_wrap (int): The number of columns to wrap the FacetGrid. Default is None.
+        Use only when `cols` is specified and `rows` is None.
+        scales (str): The scale type. One of 'fixed', 'free', 'free_x', or 'free_y'. Default is 'fixed'.
+
+    Returns:
+        matplotlib.axes._subplots.AxesSubplot: The axis or FacetGrid.
+    """
     # Set the scales of the axes
     sharex, sharey = axis_scales(scales)
     

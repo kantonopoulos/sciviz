@@ -1,11 +1,10 @@
 import matplotlib.pyplot as plt
 from utils import format_string
 
-def customize_legend_labels(ax, handles, labels, color=None, size=None, style=None):
+def customize_legend_labels(handles, labels, color=None, size=None, style=None):
     """Customize the legend labels and insert a spacer before each section title.
 
     Args:
-        ax (matplotlib.axes._subplots.AxesSubplot): The axis to which the legend belongs.
         handles (list): The list of handles in the legend.
         labels (list): The list of labels in the legend.
         color (str): The name of the color attribute.
@@ -111,8 +110,7 @@ def customize_legend(ax, color=None, size=None, style=None, x_pos=1.05, y_pos=0.
         matplotlib.axes._subplots.AxesSubplot: The axis with the customized legend.
     """
     handles, labels = ax.get_legend_handles_labels()
-    new_handles, new_labels = customize_legend_labels(ax=ax, 
-                                                      handles=handles, 
+    new_handles, new_labels = customize_legend_labels(handles=handles, 
                                                       labels=labels, 
                                                       color=color, 
                                                       size=size, 
