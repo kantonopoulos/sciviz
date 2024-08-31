@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 def axis_scales(scales):
     """Set the scales of the axes based on the input string.
 
@@ -24,6 +25,7 @@ def axis_scales(scales):
         sharex = True
         sharey = False
     return sharex, sharey
+
 
 def sciviz(data, height=4, aspect=1, cols=None, rows=None, col_wrap=None, scales='fixed'):
     """Create a figure or FacetGrid.

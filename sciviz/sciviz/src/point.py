@@ -3,7 +3,8 @@ from utils import format_string
 from palettes import get_palette
 import seaborn as sns
 
-def point(ax, data, x, y, color=None, size=None, style=None, palette=None, alpha=0.7):
+
+def point(ax, data, x, y, color=None, size=None, style=None, marker_color = 'black', marker_style = 'o', marker_size = 50, palette='jama', alpha=0.7):
     """Create a scatter plot.
 
     Args:
@@ -14,6 +15,9 @@ def point(ax, data, x, y, color=None, size=None, style=None, palette=None, alpha
         color (str): The column name for the color attribute. Default is None.
         size (str): The column name for the size attribute. Default is None.
         style (str): The column name for the style attribute. Default is None.
+        marker_color (str): The color of the markers. Default is 'black'. It will be ignored if color is not None.
+        marker_style (str): The style of the markers. Default is 'o'. It will be ignored if style is not None.
+        marker_size (int): The size of the markers. Default is 50. It will be ignored if size is not None.
         palette (str): The name of the palette or a list of colors. Default is None.
         alpha (float): The transparency of the points. Default is 0.7.
 
@@ -32,7 +36,17 @@ def point(ax, data, x, y, color=None, size=None, style=None, palette=None, alpha
             if var and (var == col_var or var == row_var):
                 data[var] = data[var].astype('category')
 
-        ax.map_dataframe(sns.scatterplot, x=x, y=y, hue=color, size=size, style=style, palette=palette, alpha=alpha)
+        ax.map_dataframe(sns.scatterplot, 
+                         x=x, 
+                         y=y, 
+                         hue=color, 
+                         size=size, 
+                         style=style, 
+                         palette=palette if color else None,
+                         alpha=alpha,
+                         color=marker_color,
+                         marker=marker_style,
+                         s=marker_size)
         ax.set_axis_labels(format_string(x), format_string(y), weight='bold', fontsize=11)
         
         # Customize the facet titles
@@ -52,7 +66,18 @@ def point(ax, data, x, y, color=None, size=None, style=None, palette=None, alpha
             
     else:
         # Plot on a single axis
-        sns.scatterplot(data=data, x=x, y=y, hue=color, size=size, style=style, palette=palette, alpha=alpha, ax=ax)
+        sns.scatterplot(data=data, 
+                        x=x, 
+                        y=y, 
+                        hue=color, 
+                        size=size, 
+                        style=style, 
+                        palette=palette if color else None, 
+                        alpha=alpha, 
+                        color=marker_color,
+                        marker=marker_style,
+                        s=marker_size,
+                        ax=ax)
         if color or size or style:
             ax = customize_legend(ax=ax, color=color, size=size, style=style)
 
