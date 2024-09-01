@@ -69,32 +69,6 @@ def customize_legend_text(legend, color=None, size=None, style=None):
     return legend
 
 
-def calc_facet_legend_pos(ax):
-    """Calculate the position of the legend on a FacetGrid.
-
-    Args:
-        ax (seaborn.axisgrid.FacetGrid): The FacetGrid to which the legend belongs.
-
-    Returns:
-        matplotlib.axes._subplots.AxesSubplot: The last axis of the FacetGrid.
-        float: The x position of the legend.
-        float: The y position of the legend.
-    """
-    last_ax = ax.axes.flat[-1]
-    num_cols = ax._ncol
-    
-    for i, axis in enumerate(ax.axes.flat):
-        if axis == last_ax:
-            row, col = divmod(i, num_cols)
-            row += 1
-            col += 1
-
-    pos_x = ax._ncol - col + 1.25 if ax._ncol != col else 1.25
-    pos_y = 0.5 * ax._nrow + 0.2 if ax._nrow > 1 else 0.5
-    
-    return last_ax, pos_x, pos_y
-
-
 def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.5):
     """Customize the legend labels, allign the section titles to the left and 
        insert a spacer before each section title.
@@ -110,7 +84,10 @@ def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.
     Returns:
         matplotlib.axes._subplots.AxesSubplot: The axis with the customized legend.
     """
-    handles, labels = ax.get_legend_handles_labels()
+    handles = ax.get_legend().legend_handles
+    legend_texts = ax.get_legend().get_texts()
+    labels = [text.get_text() for text in legend_texts]
+    
     new_handles, new_labels = customize_legend_labels(handles=handles, 
                                                       labels=labels, 
                                                       color=color, 
