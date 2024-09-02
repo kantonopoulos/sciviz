@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def point(ax, data, x, y, color=None, size=None, style=None, marker_color = 'black', marker_style = 'o', marker_size = 50, palette='jama', alpha=0.7):
+def point(ax, data, x, y, color=None, size=None, style=None, palette='jama', alpha=0.7, marker_color = 'black', marker_style = 'o', marker_size = 5, show_legend=True, format_labels=True):
     """Create a scatter plot.
 
     Args:
@@ -15,11 +15,13 @@ def point(ax, data, x, y, color=None, size=None, style=None, marker_color = 'bla
         color (str): The column name for the color attribute. Default is None.
         size (str): The column name for the size attribute. Default is None.
         style (str): The column name for the style attribute. Default is None.
+        palette (str): The name of the palette or a list of colors. Default is None.
+        alpha (float): The transparency of the points. Default is 0.7.
         marker_color (str): The color of the markers. Default is 'black'. It will be ignored if color is not None.
         marker_style (str): The style of the markers. Default is 'o'. It will be ignored if style is not None.
         marker_size (int): The size of the markers. Default is 50. It will be ignored if size is not None.
-        palette (str): The name of the palette or a list of colors. Default is None.
-        alpha (float): The transparency of the points. Default is 0.7.
+        show_legend (bool): Whether to show the legend. Default is True.
+        format_labels (bool): Whether to format the labels. Default is True.
 
     Returns:
         matplotlib.axes._subplots.AxesSubplot: The plot.
@@ -37,12 +39,17 @@ def point(ax, data, x, y, color=None, size=None, style=None, marker_color = 'bla
                     alpha=alpha, 
                     color=marker_color,
                     marker=marker_style,
-                    s=marker_size,
+                    s=marker_size*10,
                     ax=ax)
-    if color or size or style:
-        ax = customize_legend(ax=ax, color=color, size=size, style=style)
-
-    ax.set_xlabel(format_string(x), weight='bold', fontsize=11)
-    ax.set_ylabel(format_string(y), weight='bold', fontsize=11)
+    
+    if color:
+        if show_legend:
+            ax = customize_legend(ax=ax, color=color, size=None, style=None, format_labels=format_labels)
+        else:
+            ax.get_legend().remove()
+    
+    if format_labels:
+        ax.set_xlabel(format_string(x), weight='bold', fontsize=11)
+        ax.set_ylabel(format_string(y), weight='bold', fontsize=11)
 
     return ax

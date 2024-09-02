@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
+from matplotlib.lines import Line2D
 from utils import format_string
 
 
@@ -44,7 +46,27 @@ def customize_legend_labels(handles, labels, color=None, size=None, style=None):
     return new_handles, new_labels
 
 
-def customize_legend_text(legend, color=None, size=None, style=None):
+def check_legend_handles(handles):
+    """Check the type of the legend handles and calculate the x distance for the section titles.
+
+    Args:
+        handles (list): The list of handles in the legend.
+
+    Returns:
+        int: The x distance for the section titles.
+    """
+    handle = handles[1]
+    if isinstance(handle, Rectangle):
+        xdist = -45
+    elif isinstance(handle, Line2D):
+        xdist = -35
+    else:
+        xdist = -35
+
+    return xdist
+
+
+def customize_legend_text(legend, color=None, size=None, style=None, xdist=-35, format_labels=True):
     """Customize the legend text and allign the section titles to the left.
 
     Args:
@@ -52,24 +74,32 @@ def customize_legend_text(legend, color=None, size=None, style=None):
         color (str): The name of the color attribute.
         size (str): The name of the size attribute.
         style (str): The name of the style attribute.
-
+        xdist (int): The x distance for the section titles.
+        format_labels (bool): Whether to format the labels. Default is True.
+        
     Returns:
         matplotlib.legend.Legend: The customized legend.
     """
     # Customize the legend titles font and weight 
     for text in legend.get_texts():
         if text.get_text() in [color, size, style]:
-            text.set_text(format_string(text.get_text()))
-            text.set_fontsize(11)
-            text.set_fontweight('bold')
-            text.set_x(-35)
+            if format_labels:
+                text.set_text(format_string(text.get_text()))
+                text.set_fontsize(11)
+                text.set_fontweight('bold')
+            else:
+                text.set_text(text.get_text())
+            text.set_x(xdist)
         else: 
-            text.set_text(format_string(text.get_text()))
+            if format_labels:
+                text.set_text(format_string(text.get_text()))
+            else:
+                text.set_text(text.get_text())
         
     return legend
 
 
-def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.5):
+def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.5, format_labels=True):
     """Customize the legend labels, allign the section titles to the left and 
        insert a spacer before each section title.
 
@@ -80,6 +110,7 @@ def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.
         style (str): The name of the style attribute.
         x_pos (float): The x position of the legend.
         y_pos (float): The y position of the legend.
+        format_labels (bool): Whether to format the labels. Default is True.
 
     Returns:
         matplotlib.axes._subplots.AxesSubplot: The axis with the customized legend.
@@ -87,7 +118,7 @@ def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.
     handles = ax.get_legend().legend_handles
     legend_texts = ax.get_legend().get_texts()
     labels = [text.get_text() for text in legend_texts]
-    
+
     new_handles, new_labels = customize_legend_labels(handles=handles, 
                                                       labels=labels, 
                                                       color=color, 
@@ -101,7 +132,8 @@ def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.
                        bbox_to_anchor=(x_pos, y_pos), 
                        frameon=False)
 
-    legend = customize_legend_text(legend=legend, color=color, size=size, style=style)
+    xdist = check_legend_handles(handles)
+    legend = customize_legend_text(legend=legend, color=color, size=size, style=style, xdist=xdist, format_labels=format_labels)
 
     return ax
 
@@ -147,8 +179,9 @@ def customize_legend_labels_user(ax, handles, titles_list, labels_list):
         for label in labels_list:
             if label in titles_list:
                 if i != 0:
-                    new_handles.append(plt.Line2D([0], [0], color='none'))
+                    new_handles.append(plt.Line2D([0], [0], color='none', label='Color'))
                     new_labels.append('')
+                    i += 1
                 
                 new_handles.append(handles[i])
                 new_labels.append(label)
@@ -162,7 +195,6 @@ def customize_legend_labels_user(ax, handles, titles_list, labels_list):
                 title_handle = plt.Line2D([0], [0], color='none', label='Color')
                 new_handles.append(title_handle)
                 new_labels.append(label)
-                i -= 1
             else:
                 new_handles.append(handles[i])
                 new_labels.append(label)
@@ -171,7 +203,7 @@ def customize_legend_labels_user(ax, handles, titles_list, labels_list):
     return new_handles, new_labels
 
 
-def customize_legend_text_user(legend, titles_list, legendtitles_size=11, legendtitles_weight='bold', legendlabels_size=10, legendlabels_weight='normal'):
+def customize_legend_text_user(legend, titles_list, legendtitles_size=11, legendtitles_weight='bold', legendlabels_size=10, legendlabels_weight='normal', xdist=-35):
     """Customize the legend text and allign the section titles to the left.
 
     Args:
@@ -189,7 +221,7 @@ def customize_legend_text_user(legend, titles_list, legendtitles_size=11, legend
         if text.get_text() in titles_list:
             text.set_fontsize(legendtitles_size)
             text.set_fontweight(legendtitles_weight)
-            text.set_x(-35)
+            text.set_x(xdist)
         else: 
             text.set_fontsize(legendlabels_size)
             text.set_fontweight(legendlabels_weight)
@@ -234,7 +266,7 @@ def customize_legend_user(ax, user_labels, legend=True, legend_pos='side', legen
         legendtitles_size (int): The font size of the section titles. Default is 11.
         legendtitles_weight (str): The font weight of the section titles. Default is 'bold'.
         legendlabels_size (int): The font size of the labels. Default is 10.
-        legendlabels_weight (str): The font weight of the labels. Default
+        legendlabels_weight (str): The font weight of the labels. Default is 'normal'.
 
     Returns:
         matplotlib.axes._subplots.AxesSubplot: The axis with the customized legend.
@@ -242,7 +274,8 @@ def customize_legend_user(ax, user_labels, legend=True, legend_pos='side', legen
     if not legend:
         ax.legend().set_visible(False)
         return ax
-    handles, labels = ax.get_legend_handles_labels()
+    
+    handles = ax.get_legend().legend_handles   
     titles_list, labels_list = create_labels_lists(user_labels=user_labels)
     new_handles, new_labels = customize_legend_labels_user(ax=ax, handles=handles, titles_list=titles_list, labels_list=labels_list)
     
@@ -261,11 +294,13 @@ def customize_legend_user(ax, user_labels, legend=True, legend_pos='side', legen
                        ncol=1 if legend_pos == 'side' else len(new_labels),
                        columnspacing=1)
     
+    xdist = check_legend_handles(handles)
     legend = customize_legend_text_user(legend=legend, 
                                         titles_list=titles_list, 
                                         legendtitles_size=legendtitles_size, 
                                         legendtitles_weight=legendtitles_weight, 
                                         legendlabels_size=legendlabels_size, 
-                                        legendlabels_weight=legendlabels_weight)
+                                        legendlabels_weight=legendlabels_weight,
+                                        xdist=xdist)
 
     return ax

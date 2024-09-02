@@ -24,7 +24,7 @@ def plot_theme(ax, theme='ticks'):
 
 def set_title(ax, 
               title=None, 
-              title_size=12, 
+              title_size=14, 
               title_weight='bold', 
               subtitle=None, 
               subtitle_size=11, 
@@ -34,7 +34,7 @@ def set_title(ax,
     Args:
         ax (matplotlib.axes._subplots.AxesSubplot): The axis to set the title on.
         title (str): The title of the plot. Default is None.
-        title_size (int): The font size of the title. Default is 12.
+        title_size (int): The font size of the title. Default is 14.
         title_weight (str): The font weight of the title. Default is 'bold'.
         subtitle (str): The subtitle of the plot. Default is None.
         subtitle_size (int): The font size of the subtitle. Default is 11.
@@ -43,20 +43,11 @@ def set_title(ax,
     Returns:
         matplotlib.axes._subplots.AxesSubplot: The axis with the theme set.
     """
-    if isinstance(ax, sns.axisgrid.FacetGrid):
-        if title is not None:
-            ax.figure.subplots_adjust(top=0.85)
-        if subtitle is not None:
-            plt.suptitle(title, fontsize=title_size, weight=title_weight)
-            raise Warning("FacetGrid does not support subtitles.")
-        else: 
-            plt.suptitle(title, fontsize=title_size, weight=title_weight)
-    else:
-        if subtitle is not None:
-            plt.suptitle(title, fontsize=title_size, weight=title_weight)
-            plt.title(subtitle, fontsize=subtitle_size, weight=subtitle_weight)
-        else: 
-            plt.title(title, fontsize=title_size, weight=title_weight)
+    if subtitle is not None:
+        plt.suptitle(title, fontsize=title_size, weight=title_weight, y=0.96)
+        plt.title(subtitle, fontsize=subtitle_size, weight=subtitle_weight)
+    else: 
+        plt.title(title, fontsize=title_size, weight=title_weight)
     
     return ax
 
@@ -91,7 +82,7 @@ def axes(ax, xlab=None, ylab=None, xlim=None, ylim=None, axislabel_size=11, axis
     return ax
 
 
-def axes_ticks(ax, xticks=None, yticks=None, xticks_angle=0, yticks_angle=0, ticklabel_size=10):
+def axes_ticks(ax, xticks=None, yticks=None, xticks_labels=None, yticks_labels=None, xticks_angle=0, yticks_angle=0, ticklabel_size=10):
     """Set the ticks and tick labels of the axes.
 
     Args:
@@ -107,10 +98,10 @@ def axes_ticks(ax, xticks=None, yticks=None, xticks_angle=0, yticks_angle=0, tic
     """
     if xticks is not None:
         ax.set_xticks(xticks)
-        ax.set_xticklabels(xticks)
+        ax.set_xticklabels(xticks_labels)
     if yticks is not None:
         ax.set_yticks(yticks)
-        ax.set_yticklabels(yticks)
+        ax.set_yticklabels(yticks_labels)
         
     ax.tick_params(axis='x', rotation=xticks_angle)
     ax.tick_params(axis='y', rotation=yticks_angle)
@@ -133,9 +124,11 @@ def theme(ax,
           ylim=None,
           xticks=None,
           yticks=None,
+          xticks_labels=None, 
+          yticks_labels=None, 
           xticks_angle=0,
           yticks_angle=0,
-          title_size=12,
+          title_size=14,
           title_weight='bold',
           subtitle_size=11,
           subtitle_weight='normal',
@@ -163,9 +156,11 @@ def theme(ax,
         ylim (tuple): The limits for the y-axis. Default is None.
         xticks (list): The ticks for the x-axis. Default is None.
         yticks (list): The ticks for the y-axis. Default is None.
+        xticks_labels (list): The labels for the x-axis ticks. Default is None.
+        yticks_labels (list): The labels for the y-axis ticks. Default is None.
         xticks_angle (int): The rotation angle of the x-axis tick labels. Default is 0.
         yticks_angle (int): The rotation angle of the y-axis tick labels. Default is 0.
-        title_size (int): The font size of the title. Default is 12.
+        title_size (int): The font size of the title. Default is 14.
         title_weight (str): The font weight of the title. Default is 'bold'.
         subtitle_size (int): The font size of the subtitle. Default is 11.
         subtitle_weight (str): The font weight of the subtitle. Default is 'normal'.
@@ -204,6 +199,8 @@ def theme(ax,
     ax = axes_ticks(ax=ax, 
                     xticks=xticks, 
                     yticks=yticks, 
+                    xticks_labels=xticks_labels, 
+                    yticks_labels=yticks_labels, 
                     xticks_angle=xticks_angle, 
                     yticks_angle=yticks_angle, 
                     ticklabel_size=ticklabel_size)
