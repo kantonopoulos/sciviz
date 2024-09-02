@@ -102,9 +102,12 @@ def axes_ticks(ax, xticks=None, yticks=None, xticks_labels=None, yticks_labels=N
     if yticks is not None:
         ax.set_yticks(yticks)
         ax.set_yticklabels(yticks_labels)
-        
-    ax.tick_params(axis='x', rotation=xticks_angle)
-    ax.tick_params(axis='y', rotation=yticks_angle)
+    if xticks_angle:
+        ax.tick_params(axis='x', rotation=xticks_angle)
+        ax.set_xticklabels(ax.get_xticklabels(), ha='center', va='center')
+    if yticks_angle:
+        ax.tick_params(axis='y', rotation=yticks_angle)
+        ax.set_yticklabels(ax.get_yticklabels(), ha='center', va='center')   
 
     for label in ax.get_xticklabels():
         label.set_fontsize(ticklabel_size)

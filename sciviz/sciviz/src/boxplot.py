@@ -4,8 +4,8 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def boxplot(ax, data, x, y, color=None, palette='jama', alpha=0.7, orient='v', box_color='black', box_width=0.4, edge_color='black', caps=False, outliers=True, outliers_color='black', outliers_style='o', outliers_size=4, points=False, points_color='black', points_size=4, points_alpha=1, show_legend=True, format_labels=True):
-    '''Create a boxplot.
+def boxplot(ax, data, x, y, color=None, palette='jama', alpha=0.7, orient='v', box_color='black', box_width=0.4, edge_color='black', median_color='black', caps=False, outliers=True, outliers_color='black', outliers_style='o', outliers_size=4, points=False, points_color='black', points_size=4, points_alpha=1, show_legend=True, format_labels=True):
+    """Create a boxplot.
     
     Args:
         ax (matplotlib.axes._subplots.AxesSubplot): The axis to plot on.
@@ -19,6 +19,7 @@ def boxplot(ax, data, x, y, color=None, palette='jama', alpha=0.7, orient='v', b
         box_color (str): The color of the box. Default is 'black'.
         box_width (float): The width of the box. Default is 0.4.
         edge_color (str): The color of the edges. Default is 'black'.
+        median_color (str): The color of the median. Default is 'black'.
         caps (bool): Whether to show the caps. Default is False.
         outliers (bool): Whether to show the outliers. Default is True.
         outliers_color (str): The color of the outliers. Default is 'black'.
@@ -33,14 +34,14 @@ def boxplot(ax, data, x, y, color=None, palette='jama', alpha=0.7, orient='v', b
     
     Returns:
         matplotlib.axes._subplots.AxesSubplot: The plot.
-    '''
+    """
     if color is not None:
         palette = get_palette(palette=palette, data=data, color=color)    
 
     # Set the properties for the boxes
     PROPS = {
     'boxprops':{'edgecolor':edge_color},
-    'medianprops':{'color':edge_color, 'linewidth':2},
+    'medianprops':{'color':median_color, 'linewidth':2},
     'whiskerprops':{'color':edge_color},
     'capprops':{'color':edge_color}
     }
@@ -52,7 +53,7 @@ def boxplot(ax, data, x, y, color=None, palette='jama', alpha=0.7, orient='v', b
                 palette=palette if color else None,
                 color=box_color,
                 showcaps=caps,
-                showfliers=True if outliers else False, 
+                showfliers=outliers, 
                 flierprops=dict(marker=outliers_style,  # Style of the outliers 
                                 markerfacecolor=outliers_color, 
                                 markeredgecolor=outliers_color, 
