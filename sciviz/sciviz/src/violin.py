@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def violin(ax, data, x, y, color=None, palette='jama', alpha=0.8, split=False, orient='v', violin_color='silver', violin_width=0.4, edge_color='black', box=True, box_color='white', box_edgecolor='black', box_capsize=0, median_color='black', outliers=False, outliers_color='black', outliers_style='o', outliers_size=4, show_legend=True, format_labels=True):
+def violin(ax, data, x, y, color=None, palette='jama', alpha=0.8, split=False, orient='v', violin_color='silver', violin_width=0.4, box=True, box_color='white', box_edgecolor='black', box_capsize=0, median_color='black', outliers=False, outliers_color='black', outliers_style='o', outliers_size=4, show_legend=True, format_labels=True):
     """Create a violin plot.
 
     Args:
@@ -19,7 +19,6 @@ def violin(ax, data, x, y, color=None, palette='jama', alpha=0.8, split=False, o
         orient (str): The orientation of the violin plot. Default is 'v'.
         violin_color (str): The color of the violin. Default is 'grey'.
         violin_width (float): The width of the violin. Default is 0.4.
-        edge_color (str): The color of the edges. Default is 'black'.
         box (bool): Whether to show the boxplot. Default is True.
         box_color (str): The color of the box. Default is 'white'.
         box_edgecolor (str): The color of the edges of the box. Default is 'black'.
@@ -50,7 +49,7 @@ def violin(ax, data, x, y, color=None, palette='jama', alpha=0.8, split=False, o
                    saturation=1,
                    fill=True,
                    width=violin_width,
-                   linewidth=0 if edge_color else 1,
+                   linewidth=0,
                    gap=0 if split else 0.2,
                    inner=None,
                    legend='full',

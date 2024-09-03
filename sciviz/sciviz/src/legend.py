@@ -59,7 +59,10 @@ def check_legend_handles(handles):
     if isinstance(handle, Rectangle):
         xdist = -45
     elif isinstance(handle, Line2D):
-        xdist = -35
+        if handle.get_linestyle() != 'None':
+            xdist = -45
+        else:
+            xdist = -35
     else:
         xdist = -35
 
@@ -99,7 +102,7 @@ def customize_legend_text(legend, color=None, size=None, style=None, xdist=-35, 
     return legend
 
 
-def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.5, format_labels=True):
+def customize_legend(ax, color=None, size=None, style=None, pos_x=1.17, pos_y=0.5, format_labels=True):
     """Customize the legend labels, allign the section titles to the left and 
        insert a spacer before each section title.
 
@@ -108,8 +111,8 @@ def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.
         color (str): The name of the color attribute.
         size (str): The name of the size attribute.
         style (str): The name of the style attribute.
-        x_pos (float): The x position of the legend.
-        y_pos (float): The y position of the legend.
+        pos_x (float): The x position of the legend.
+        pos_y (float): The y position of the legend.
         format_labels (bool): Whether to format the labels. Default is True.
 
     Returns:
@@ -126,13 +129,16 @@ def customize_legend(ax, color=None, size=None, style=None, x_pos=1.17, y_pos=0.
                                                       style=style)
 
     # Redraw the legend with updated handles and labels
+    xdist = check_legend_handles(handles)
+    if xdist == -45:
+        pos_x = 1.17 + 0.02
+
     legend = ax.legend(handles=new_handles, 
                        labels=new_labels, 
                        loc='center', 
-                       bbox_to_anchor=(x_pos, y_pos), 
+                       bbox_to_anchor=(pos_x, pos_y), 
                        frameon=False)
 
-    xdist = check_legend_handles(handles)
     legend = customize_legend_text(legend=legend, color=color, size=size, style=style, xdist=xdist, format_labels=format_labels)
 
     return ax
@@ -286,6 +292,9 @@ def customize_legend_user(ax, user_labels, legend=True, legend_pos='side', legen
         pos_y = legend_pos[2]
         legend_pos = legend_pos[0]
     
+    xdist = check_legend_handles(handles)
+    if legend_pos == 'side' and xdist == -45:
+        pos_x = pos_x + 0.02
     legend = ax.legend(handles=new_handles, 
                        labels=new_labels, 
                        loc='center', 
@@ -294,7 +303,6 @@ def customize_legend_user(ax, user_labels, legend=True, legend_pos='side', legen
                        ncol=1 if legend_pos == 'side' else len(new_labels),
                        columnspacing=1)
     
-    xdist = check_legend_handles(handles)
     legend = customize_legend_text_user(legend=legend, 
                                         titles_list=titles_list, 
                                         legendtitles_size=legendtitles_size, 

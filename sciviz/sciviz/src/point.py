@@ -42,9 +42,9 @@ def point(ax, data, x, y, color=None, size=None, style=None, palette='jama', alp
                     s=marker_size*10,
                     ax=ax)
     
-    if color:
+    if color or size or style:
         if show_legend:
-            ax = customize_legend(ax=ax, color=color, size=None, style=None, format_labels=format_labels)
+            ax = customize_legend(ax=ax, color=color, size=size, style=style, format_labels=format_labels)
         else:
             ax.get_legend().remove()
     
