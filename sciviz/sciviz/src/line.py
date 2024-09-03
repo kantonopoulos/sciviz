@@ -57,5 +57,8 @@ def line(ax, data, x, y, color=None, size=None, style=None, stat='mean', palette
     if format_labels:
         ax.set_xlabel(format_string(x), weight='bold', fontsize=11)
         ax.set_ylabel(format_string(y), weight='bold', fontsize=11)
+    else: 
+        ax.set_xlabel(x, weight='bold', fontsize=11)
+        ax.set_ylabel(y, weight='bold', fontsize=11)
 
     return ax

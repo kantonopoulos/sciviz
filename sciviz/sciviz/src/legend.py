@@ -88,10 +88,10 @@ def customize_legend_text(legend, color=None, size=None, style=None, xdist=-35, 
         if text.get_text() in [color, size, style]:
             if format_labels:
                 text.set_text(format_string(text.get_text()))
-                text.set_fontsize(11)
-                text.set_fontweight('bold')
             else:
                 text.set_text(text.get_text())
+            text.set_fontsize(11)
+            text.set_fontweight('bold')
             text.set_x(xdist)
         else: 
             if format_labels:

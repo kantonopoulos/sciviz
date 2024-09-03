@@ -53,5 +53,11 @@ def histogram(ax, data, x, y=None, color=None, stat='count', bins='auto', binwid
             ax.set_ylabel(format_string(y), weight='bold', fontsize=11)
         else:
             ax.set_ylabel(format_string(stat), weight='bold', fontsize=11)
-    
+    else: 
+        ax.set_xlabel(x, weight='bold', fontsize=11)
+        if y:
+            ax.set_ylabel(y, weight='bold', fontsize=11)
+        else:
+            ax.set_ylabel(stat, weight='bold', fontsize=11)
+            
     return ax

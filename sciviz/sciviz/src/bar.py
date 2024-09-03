@@ -66,7 +66,9 @@ def bar(ax, data, x, y, color=None, stat='mean', palette='jama', alpha=0.7, orie
         else:
             ax.set_xlabel(format_string(x + " (" + stat + ")"), weight='bold', fontsize=11)
             ax.set_ylabel(format_string(y), weight='bold', fontsize=11)
-        
         ax = reformat_ticks_labels(ax, orient)
-
+    else: 
+        ax.set_xlabel(x, weight='bold', fontsize=11)
+        ax.set_ylabel(y, weight='bold', fontsize=11)
+        
     return ax

@@ -52,5 +52,8 @@ def jitter(ax, data, x, y, color=None, palette='jama', alpha=0.7, dodge=False, o
         ax.set_xlabel(format_string(x), weight='bold', fontsize=11)
         ax.set_ylabel(format_string(y), weight='bold', fontsize=11)
         ax = reformat_ticks_labels(ax, orient)
-
+    else: 
+        ax.set_xlabel(x, weight='bold', fontsize=11)
+        ax.set_ylabel(y, weight='bold', fontsize=11)
+        
     return ax
