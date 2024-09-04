@@ -3,17 +3,18 @@ from utils import format_string
 from palettes import get_palette
 import matplotlib.pyplot as plt
 
-def pie(ax, data, color, palette='jama', alpha=0.7, donut=False, labels=None, label_size=11, label_weight='bold', innertext=None, innertext_format='%1.1f%%', innertext_color='black', innertext_size=10, format_labels=True):
+def pie(ax, data, group, palette='jama', alpha=0.7, donut=False, labels=None, label_color='black', label_size=11, label_weight='bold', innertext=None, innertext_format='%1.1f%%', innertext_color='black', innertext_size=10, format_labels=True):
     """Create a pie chart.
 
     Args:
         ax (matplotlib.axes.Axes): The axes object to draw the plot on.
         data (pandas.DataFrame): The data to plot.
-        color (str): The column name of the data to plot.
+        group (str): The column name of the data to plot.
         palette (str): The color palette to use. Defaults to 'jama'.
         alpha (float): The transparency of the pie chart. Defaults to 0.7.
         donut (bool): Whether to create a donut chart. Defaults to False.
         labels (bool): Whether to show labels on the pie chart. Defaults to None.
+        label_color (str): The color of the labels. Defaults to 'black'.
         label_size (int): The size of the labels. Defaults to 11.
         label_weight (str): The weight of the labels. Defaults to 'bold'.
         innertext (bool): Whether to show the percentage inside the pie chart. Defaults to None.
@@ -25,11 +26,10 @@ def pie(ax, data, color, palette='jama', alpha=0.7, donut=False, labels=None, la
     Returns:
         matplotlib.axes.Axes: The axes object with the plot.        
     """
-    if color is not None:
-        palette = get_palette(palette=palette, data=data, color=color) 
+    palette = get_palette(palette=palette, data=data, color=group) 
 
     # Get the unique values of the color column and count them
-    counts = data[color].value_counts()
+    counts = data[group].value_counts()
     labels_val = counts.index.tolist()
     values = counts.values.tolist()
 
@@ -56,7 +56,7 @@ def pie(ax, data, color, palette='jama', alpha=0.7, donut=False, labels=None, la
                 formatted_text = format_string(texts[text].get_text())
                 texts[text].set_text(formatted_text)
             texts[text].set_fontsize(label_size)
-            texts[text].set_color('black')
+            texts[text].set_color(label_color)
             texts[text].set_fontweight(label_weight)
             
     ax.axis('equal')

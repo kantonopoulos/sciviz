@@ -1,3 +1,7 @@
+from itertools import chain, combinations
+from matplotlib.colors import to_rgba
+
+
 def format_string(input_string):
     """Format a string by replacing underscores with spaces and capitalizing the first letter of each word.
 
@@ -84,3 +88,104 @@ def reformat_ticks_labels(ax, orient):
 
     return ax
      
+
+def prepare_sets(data, group_col, var_col):
+    """Prepare data for a Venn diagram from a DataFrame.
+    
+    Args:
+        df (pd.DataFrame): DataFrame containing the data.
+        group (str): Column name of the group variable.
+        var (str): Column name of the variable to compare.
+        
+    Returns:
+        list: Labels for the sets.
+        dict: Dictionary containing the counts for each subset.
+    """
+        # Get unique groups
+    groups = data[group_col].unique()
+    
+    # Prepare the sets
+    sets = [set(data[data[group_col] == group][var_col]) for group in groups]
+    set_labels = list(map(str, groups))
+    
+    # Generate all possible combinations of group memberships, prioritizing larger intersections
+    n = len(sets)
+    all_combinations = sorted(
+        chain.from_iterable(combinations(range(n), r) for r in range(1, n + 1)),
+        key=lambda x: -len(x)  # Sort by length of combination, descending
+    )
+
+    # Prepare the subset labels with counts
+    subset_labels = {}
+    used_elements = set()
+
+    for combo in all_combinations:
+        # Create a tuple indicating the membership of each set
+        membership = [1 if i in combo else 0 for i in range(n)]
+        
+        # Find intersection of all sets in the combination, excluding already counted elements
+        intersection = set.intersection(*[sets[i] for i in combo]) - used_elements
+        
+        # Count the elements in the intersection
+        if intersection:
+            count = len(intersection)
+            subset_labels[tuple(membership)] = count
+            
+            # Mark these elements as used
+            used_elements.update(intersection)
+
+    return set_labels, subset_labels
+
+
+def blend_colors(color1, color2):
+    """
+    Blends two colors by averaging their RGBA values.
+    
+    Parameters:
+        color1 (str): The first color (e.g., 'red').
+        color2 (str): The second color (e.g., 'blue').
+    
+    Returns:
+        blended_color (tuple): The blended color as an RGBA tuple.
+    """
+    rgba1 = to_rgba(color1)
+    rgba2 = to_rgba(color2)
+    
+    # Average the RGBA values
+    blended_color = tuple((a + b) / 2 for a, b in zip(rgba1, rgba2))
+    
+    return blended_color
+
+
+def calculate_colors(subset_labels, palette):
+    """
+    Calculates the color for each subset based on the palette and intersections.
+    
+    Parameters:
+        subset_labels (dict): Dictionary mapping subsets to their counts.
+        palette (list): List of colors to be used for the individual sets.
+    
+    Returns:
+        color_map (dict): Dictionary mapping subsets to colors.
+    """
+    n_sets = len(palette)
+    
+    # Initialize the color_map
+    color_map = {}
+    
+    # Add colors for individual sets
+    for idx in range(n_sets):
+        color_map[tuple([1 if i == idx else 0 for i in range(n_sets)])] = palette[idx]
+    
+    # Add colors for intersections
+    for subset in subset_labels.keys():
+        if sum(subset) > 1:  # Skip individual sets
+            involved_colors = [palette[i] for i, bit in enumerate(subset) if bit == 1]
+            if involved_colors:
+                # Blend colors for intersections
+                blended_color = involved_colors[0]
+                for color in involved_colors[1:]:
+                    blended_color = blend_colors(blended_color, color)
+                color_map[subset] = blended_color
+    
+    return color_map

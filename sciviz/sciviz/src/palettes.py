@@ -1,5 +1,6 @@
+import seaborn as sns
 import matplotlib.colors as mcolors
-from matplotlib import colormaps
+
 
 PALETTES = {
     "npg_nrc": {
@@ -577,11 +578,13 @@ def get_palette(palette, data=None, color=None):
         color (str): The name of the color attribute in the data.
 
     Returns:
-        list or str: The list of colors in the specified palette. 
-        If the palette is a seaborn palette, return the palette name.
+        list: The list of colors in the specified palette. 
     """
     if type(palette) == str and palette in PALETTES:
         palette = sciviz_palette(palette)
+    elif type(palette) == str:
+        palette = sns.color_palette(palette)
+        palette = [mcolors.to_hex(color) for color in palette]
     elif palette is None:
         palette = "deep"  # Set default palette
     else:
