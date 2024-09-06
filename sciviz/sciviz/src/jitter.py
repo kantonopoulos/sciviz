@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def jitter(ax, data, x, y, color=None, palette='jama', alpha=0.7, dodge=False, orient='v', points_color='black', points_size=5, show_legend=True, format_labels=True):
+def jitter(ax, data, x, y, color=None, palette='npg_nrc', alpha=0.9, dodge=False, orient='v', points_color='black', points_size=6, show_legend=True, format_labels=True):
     """Create a jitter plot.
 
     Args:
@@ -13,12 +13,12 @@ def jitter(ax, data, x, y, color=None, palette='jama', alpha=0.7, dodge=False, o
         x (str): The column name for the x-axis.
         y (str): The column name for the y-axis.
         color (str): The column name for the color attribute. Default is None.
-        palette (str): The name of the palette or a list of colors. Default is 'jama'.
-        alpha (float): The transparency of the points. Default is 0.7.
+        palette (str): The name of the palette or a list of colors. Default is 'npg_nrc'.
+        alpha (float): The transparency of the points. Default is 0.9.
         dodge (bool): Whether to dodge the points. Default is False.
         orient (str): The orientation of the plot. Default is 'v'.
         points_color (str): The color of the points. Default is 'black'.
-        points_size (int): The size of the points. Default is 5.
+        points_size (int): The size of the points. Default is 6.
         show_legend (bool): Whether to show the legend. Default is True.
         format_labels (bool): Whether to format the labels. Default is True.
 

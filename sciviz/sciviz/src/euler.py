@@ -3,7 +3,7 @@ from palettes import get_palette
 from utils import format_string, prepare_sets, calculate_colors
 
 
-def euler(ax, data, group, var, palette='jama', alpha=0.7, label_color='black', label_size=11, label_weight='bold', innertext=None, innertext_color='black', innertext_size=10, format_labels=True):
+def euler(ax, data, group, var, palette='npg_nrc', alpha=0.9, label_color='black', label_size=11, label_weight='bold', innertext=None, innertext_color='black', innertext_size=10, format_labels=True):
     """Create a Euler diagram.
 
     Args:
@@ -11,8 +11,8 @@ def euler(ax, data, group, var, palette='jama', alpha=0.7, label_color='black', 
         data (pandas.DataFrame): The data to plot.
         group (str): The column name of the data to plot.
         var (str): The column name of the data to plot.
-        palette (str): The color palette to use. Defaults to 'jama'.
-        alpha (float): The transparency of the pie chart. Defaults to 0.7.
+        palette (str): The color palette to use. Defaults to 'npg_nrc'.
+        alpha (float): The transparency of the pie chart. Defaults to 0.9.
         label_color (str): The color of the labels. Defaults to 'black'.
         label_size (int): The size of the labels. Defaults to 11.
         label_weight (str): The weight of the labels. Defaults to 'bold'.

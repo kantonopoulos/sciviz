@@ -3,17 +3,17 @@ from utils import format_string
 from palettes import get_palette
 import matplotlib.pyplot as plt
 
-def pie(ax, data, group, palette='jama', alpha=0.7, donut=False, labels=None, label_color='black', label_size=11, label_weight='bold', innertext=None, innertext_format='%1.1f%%', innertext_color='black', innertext_size=10, format_labels=True):
+def pie(ax, data, group, palette='npg_nrc', alpha=0.9, donut=False, labels=True, label_color='black', label_size=11, label_weight='bold', innertext=True, innertext_format='%1.0f%%', innertext_color='black', innertext_size=10, format_labels=True):
     """Create a pie chart.
 
     Args:
         ax (matplotlib.axes.Axes): The axes object to draw the plot on.
         data (pandas.DataFrame): The data to plot.
         group (str): The column name of the data to plot.
-        palette (str): The color palette to use. Defaults to 'jama'.
-        alpha (float): The transparency of the pie chart. Defaults to 0.7.
+        palette (str): The color palette to use. Defaults to 'npg_nrc'.
+        alpha (float): The transparency of the pie chart. Defaults to 0.9.
         donut (bool): Whether to create a donut chart. Defaults to False.
-        labels (bool): Whether to show labels on the pie chart. Defaults to None.
+        labels (bool): Whether to show labels on the pie chart. Defaults to True.
         label_color (str): The color of the labels. Defaults to 'black'.
         label_size (int): The size of the labels. Defaults to 11.
         label_weight (str): The weight of the labels. Defaults to 'bold'.

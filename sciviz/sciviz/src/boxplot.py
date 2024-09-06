@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def boxplot(ax, data, x, y, color=None, palette='jama', alpha=0.7, orient='v', box_color='black', box_width=0.4, edge_color='black', median_color='black', caps=False, outliers=True, outliers_color='black', outliers_style='o', outliers_size=4, points=False, points_color='black', points_size=4, points_alpha=1, show_legend=True, format_labels=True):
+def boxplot(ax, data, x, y, color=None, palette='npg_nrc', alpha=1, orient='v', box_color='black', box_width=0.4, edge_color='black', median_color='black', caps=False, outliers=True, outliers_color='black', outliers_style='o', outliers_size=4, points=False, points_color='black', points_size=4, points_alpha=1, show_legend=True, format_labels=True):
     """Create a boxplot.
     
     Args:
@@ -13,8 +13,8 @@ def boxplot(ax, data, x, y, color=None, palette='jama', alpha=0.7, orient='v', b
         x (str): The column name for the x-axis.
         y (str): The column name for the y-axis.
         color (str): The column name for the color attribute. Default is None.
-        palette (str): The name of the palette or a list of colors. Default is 'jama'.
-        alpha (float): The transparency of the boxplot. Default is 0.7.
+        palette (str): The name of the palette or a list of colors. Default is 'npg_nrc'.
+        alpha (float): The transparency of the boxplot. Default is 1.
         orient (str): The orientation of the boxplot. Default is 'v'.
         box_color (str): The color of the box. Default is 'black'.
         box_width (float): The width of the box. Default is 0.4.

@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def bar(ax, data, x, y, color=None, stat='mean', palette='jama', alpha=0.7, orient='v', bar_color='black', bar_width=0.4, edge_color='black', errorbar=None, errorbar_color='black', errorbar_linestyle='-', errorbar_linewidth=1, errorbar_capsize=0.2, show_legend=True, format_labels=True):
+def bar(ax, data, x, y, color=None, stat='mean', palette='npg_nrc', alpha=1, orient='v', bar_color='black', bar_width=0.4, edge_color='black', errorbar=None, errorbar_color='black', errorbar_linestyle='-', errorbar_linewidth=1, errorbar_capsize=0.2, show_legend=True, format_labels=True):
     """Create a bar plot.
 
     Args:
@@ -49,6 +49,7 @@ def bar(ax, data, x, y, color=None, stat='mean', palette='jama', alpha=0.7, orie
                 linewidth=1, 
                 capsize=errorbar_capsize if errorbar else 0,
                 err_kws={'color': errorbar_color, 'linestyle': errorbar_linestyle, 'linewidth': errorbar_linewidth, 'alpha': 1} if errorbar else None,
+                legend='full',
                 ax=ax)  
     
     ax = set_alpha(ax, alpha)

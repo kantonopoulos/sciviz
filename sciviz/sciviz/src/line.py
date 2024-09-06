@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def line(ax, data, x, y, color=None, size=None, style=None, stat='mean', palette='jama', alpha=0.7, line_color='black', markers = True, errorbar=None, errorbar_style='band', show_legend=True, format_labels=True):
+def line(ax, data, x, y, color=None, size=None, style=None, stat='mean', palette='npg_nrc', alpha=1, line_color='black', markers = True, errorbar=('ci', 95), errorbar_style='band', show_legend=True, format_labels=True):
     """Create a line plot.
 
     Args:
@@ -16,11 +16,11 @@ def line(ax, data, x, y, color=None, size=None, style=None, stat='mean', palette
         size (str): Column name of the size variable. Defaults to None.
         style (str): Column name of the style variable. Defaults to None.
         stat (str): Statistic to compute. Defaults to 'mean'.
-        palette (str): Name of the color palette. Defaults to 'jama'.
-        alpha (float): Transparency of the line. Defaults to 0.7.
+        palette (str): Name of the color palette. Defaults to 'npg_nrc'.
+        alpha (float): Transparency of the line. Defaults to 1.
         line_color (str): Color of the line. Defaults to 'black'.
         markers (bool): Whether to show markers. Defaults to True.
-        errorbar (str): Column name of the errorbar variable. Defaults to None.
+        errorbar (str): Column name of the errorbar variable. Defaults to ('ci', 95).
         errorbar_style (str): Style of the errorbar. Defaults to 'band'.
         show_legend (bool): Whether to show the legend. Defaults to True.
         format_labels (bool): Whether to format the labels. Defaults to True.

@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def point(ax, data, x, y, color=None, size=None, style=None, palette='jama', alpha=0.7, marker_color = 'black', marker_style = 'o', marker_size = 5, show_legend=True, format_labels=True):
+def point(ax, data, x, y, color=None, size=None, style=None, palette='npg_nrc', alpha=1, edges=True, marker_color = 'black', marker_style = 'o', marker_size = 5, show_legend=True, format_labels=True):
     """Create a scatter plot.
 
     Args:
@@ -15,8 +15,9 @@ def point(ax, data, x, y, color=None, size=None, style=None, palette='jama', alp
         color (str): The column name for the color attribute. Default is None.
         size (str): The column name for the size attribute. Default is None.
         style (str): The column name for the style attribute. Default is None.
-        palette (str): The name of the palette or a list of colors. Default is None.
-        alpha (float): The transparency of the points. Default is 0.7.
+        palette (str): The name of the palette or a list of colors. Default is 'npg_nrc'.
+        alpha (float): The transparency of the points. Default is 1.
+        edges (bool): Whether to show the edges of the markers. Default is True.
         marker_color (str): The color of the markers. Default is 'black'. It will be ignored if color is not None.
         marker_style (str): The style of the markers. Default is 'o'. It will be ignored if style is not None.
         marker_size (int): The size of the markers. Default is 50. It will be ignored if size is not None.
@@ -29,6 +30,10 @@ def point(ax, data, x, y, color=None, size=None, style=None, palette='jama', alp
     if color is not None:
         palette = get_palette(palette=palette, data=data, color=color)    
 
+    kwargs  =   {'edgecolor':"black",
+                'linewidth':0.5
+                }
+    
     sns.scatterplot(data=data, 
                     x=x, 
                     y=y, 
@@ -40,7 +45,9 @@ def point(ax, data, x, y, color=None, size=None, style=None, palette='jama', alp
                     color=marker_color,
                     marker=marker_style,
                     s=marker_size*10,
-                    ax=ax)
+                    ax=ax,
+                    **kwargs if edges else None
+                    )
     
     if color or size or style:
         if show_legend:

@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def histogram(ax, data, x, y=None, color=None, stat='count', bins='auto', binwidth=None, palette='jama', alpha=0.7, hist_color='black', edge_color='black', show_legend=True, format_labels=True):
+def histogram(ax, data, x, y=None, color=None, stat='count', bins='auto', binwidth=None, palette='npg_nrc', alpha=1, hist_color='grey', edge_color='black', show_legend=True, format_labels=True):
     """Create a histogram.
 
     Args:
@@ -16,9 +16,9 @@ def histogram(ax, data, x, y=None, color=None, stat='count', bins='auto', binwid
         stat (str): The type of histogram. Default is 'count'.
         bins (int): The number of bins. Default is 'auto'.
         binwidth (float): The width of the bins. Default is None. This will override the bins parameter.
-        palette (str): The name of the palette or a list of colors. Default is None.
-        alpha (float): The transparency of the histogram. Default is 0.7.
-        hist_color (str): The color of the histogram. Default is 'black'.
+        palette (str): The name of the palette or a list of colors. Default is 'npg_nrc'.
+        alpha (float): The transparency of the histogram. Default is 1.
+        hist_color (str): The color of the histogram. Default is 'grey'.
         edge_color (str): The color of the edges. Default is 'black'.
         show_legend (bool): Whether to show the legend. Default is True.
         format_labels (bool): Whether to format the labels. Default is True.

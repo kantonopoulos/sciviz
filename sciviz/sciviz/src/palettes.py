@@ -3,14 +3,26 @@ import matplotlib.colors as mcolors
 
 
 PALETTES = {
+    "minimal": {
+            'blue': '#2271B5',
+            'red': '#DC0000',
+            'green': '#528A63',
+            'yellow': '#FEED70',
+            'purple': '#603479',
+            'lightblue': '#A6CEE3',
+            'lightred': '#E8A29A',
+            'lightgreen': '#ADC74F',
+            'lila': '#B195AE',
+            'brown': '#7E6148'
+    },
     "npg_nrc": {
         "Cinnabar": "#E64B35",
-        "Shakespeare": "#4DBBD5",
-        "PersianGreen": "#00A087",
         "Chambray": "#3C5488",
+        "MonteCarlo": "#91D1C2",
+        "Shakespeare": "#4DBBD5",
         "Apricot": "#F39B7F",
         "WildBlueYonder": "#8491B4",
-        "MonteCarlo": "#91D1C2",
+        "PersianGreen": "#00A087",
         "Monza": "#DC0000",
         "RomanCoffee": "#7E6148",
         "Sandrift": "#B09C85"

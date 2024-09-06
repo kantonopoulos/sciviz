@@ -4,7 +4,7 @@ from palettes import get_palette
 import seaborn as sns
 
 
-def violin(ax, data, x, y, color=None, palette='jama', alpha=0.8, split=False, orient='v', violin_color='silver', violin_width=0.4, box=True, box_color='white', box_edgecolor='black', box_capsize=0, median_color='black', outliers=False, outliers_color='black', outliers_style='o', outliers_size=4, show_legend=True, format_labels=True):
+def violin(ax, data, x, y, color=None, palette='npg_nrc', alpha=0.6, split=False, orient='v', violin_color='silver', violin_width=0.4, box=True, box_color='white', box_edgecolor='black', box_capsize=0, median_color='black', outliers=False, outliers_color='black', outliers_style='o', outliers_size=4, show_legend=True, format_labels=True):
     """Create a violin plot.
 
     Args:
@@ -13,7 +13,7 @@ def violin(ax, data, x, y, color=None, palette='jama', alpha=0.8, split=False, o
         x (str): The column name for the x-axis.
         y (str): The column name for the y-axis.
         color (str): The column name for the color attribute. Default is None.
-        palette (str): The name of the palette or a list of colors. Default is 'jama'.
+        palette (str): The name of the palette or a list of colors. Default is 'npg_nrc'.
         alpha (float): The transparency of the violin plot. Default is 0.6.
         split (bool): Whether to split the violins. Default is False.
         orient (str): The orientation of the violin plot. Default is 'v'.
@@ -53,9 +53,8 @@ def violin(ax, data, x, y, color=None, palette='jama', alpha=0.8, split=False, o
                    gap=0 if split else 0.2,
                    inner=None,
                    legend='full',
+                   alpha=alpha,
                    ax=ax)
-    
-    ax = set_alpha(ax, alpha)
 
     # Add boxplots to the violins
     if box:
@@ -88,20 +87,6 @@ def violin(ax, data, x, y, color=None, palette='jama', alpha=0.8, split=False, o
                     zorder=100,
                     ax=ax,
                     **PROPS)
-        '''sns.boxplot(
-            data=data, 
-            x=x, 
-            y=y, 
-            hue=color if color is not None else (x if orient == 'v' else y),  
-            gap=0 if color is None or color==x or color==y else 0.85,
-            palette=None,#box_palette if color is not None else None, 
-            color=box_color,
-
-            width=0.06 if color is None or color==x or color==y else 0.8, 
-            
-            dodge='auto', 
-            ax=ax
-            )'''
 
     if color:
         if show_legend:
